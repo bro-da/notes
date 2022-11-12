@@ -1,0 +1,7 @@
+#+title: React
+#+author: vivans
+
+A sample notes on hosting a react app using aws and netlify
+* instructions
+** setup backend on aws ec2 instance same as the first hosting tutorial [[https://github.com/bro-da/mernstack-deployment][merstack]]
+::instruction

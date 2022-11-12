@@ -1,0 +1,48 @@
+#+title: Install Jenkins
+jenkins
+* jenkins installation
+** install open jdk with respective package manager
+
+#+begin_src shell
+sudo yum install java-1.8.0-openjdk.x86_64 -y
+java --version
+#+END_SRC
+
+** wget the latest version jenkins jar file
+#+begin_src shell
+wget https://mirrors.jenkins-ci.org/redhat/jenkins-2.377-1.1.noarch.rpm
+sudo rpm -iv jenkins-*
+#+end_src
+** copy the jar file to /usr/local/bin/jenkins.war
+#+begin_src shell
+sudo cp /usr/lib/jenkins/jenkins.war /usr/local/bin/jenkins.war
+#+end_src
+** edit the jenkins file/copy the following code into it
+#+begin_src shell
+sudo vi /etc/systemd/system/jenkins.service
+#+end_src
+
+#+RESULTS:
+
+#+begin_src
+[Unit]
+Description=Jenkins service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/java -jar /usr/local/bin/jenkins.war
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+#+end_src
+
+** enable the jenkins start on boot and start the jenkins service
+#+begin_src shell
+sudo systemctl enable jenkins.service
+sudo systemctl daemon-reload
+sudo systemctl start jenkins.service
+sudo systemctl status jenkins.service
+#+end_src

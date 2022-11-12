@@ -1,0 +1,12 @@
+#+title: Setup Docker Push Aws
+
+A tutorial on setuping the computer so that we could push our containers to aws ecr
+* instructions
+** create aws account
+*** setup a ecr repositary
+*** create keys to access the repositary and push to the same
+** aws configure
+*** install aws cli on the machine
+*** setup aws configure on both user level and root level
+*** give the keys you made earlier to aws give region and json as defaults
+*** test out login with the push commands from the ecr repositary
