@@ -1,0 +1,3 @@
+#+title: Literatedevops
+* what is literate programming ?
+Literate programming is a programming paradigm introduced in 1984 by Donald Knuth in which a computer program is given as an explanation of its logic in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.[1] The approach is used in scientific computing and in data science routinely for reproducible research and open access purposes.[2] Literate programming tools are used by millions of programmers today.

@@ -1,0 +1,424 @@
+#+title: Stack Python
+
+** stack operations
+- create stack
+- pop
+- push
+- Peek
+- isEmpty
+- isFull
+- deleteStack
+
+** Stack Creation
+    1. create using python list without size limit
+    2. create using python list with size limit
+    3. using linked list
+
+
+*** stack using linked list
+- easy to implement
+  speed problem when it grows
+
+*** stack using linked list
+    - fast performanace
+    - implentation is not easy
+
+#+name: ListStackUnlimit
+#+begin_src python :session t
+class stack:
+    def __init__(self):
+        self.list=[]
+
+    def __str__(self):
+        values = self.list.reverse()
+        values = [str(x) for x in self.list]
+        return "\n".join(values)
+
+    # isEmpty
+    def isEmpty(self):
+        if self.list == []:
+            return True
+        else:
+            return False
+
+    # def isFull(self):
+      #  if len(self.list)==self.maxSize:
+       #     return True
+        #else:
+         #   return False
+
+    # push
+    def push(self,value):
+        self.list.append(value)
+        return "the element has been inserted"
+
+    # pop
+    def pop(self):
+        if self.isEmpty():
+            return "the stack is empty"
+        else:
+            return self.list.pop()
+        # peek
+    def peek(self):
+        if self.isEmpty():
+            return "the stack is empty"
+        else:
+            return self.list[len(self.list)-1]
+
+
+
+
+#+end_src
+*the implementation is written above the test cases can be given below*
+#+begin_src python :session t :var dummy=ListStackUnlimit :results output
+#The program named ListStackUnlimit is run first This program runs after
+customStack = stack()
+customStack.push(1)
+customStack.push(2)
+#print(customStack)
+customStack.push(3)
+customStack.push(4)
+print(customStack.peek())
+print(customStack)
+#+end_src
+
+#+RESULTS:
+: 4
+: 4
+: 3
+: 2
+: 1
+
+#+name: ListStacklimit
+#+begin_src python :session t
+#Stackislimited
+class stack:
+    def __init__(self,maxSize):
+        self.list=[]
+        self.maxSize=maxSize
+
+    def __str__(self):
+        values = self.list.reverse()
+        values = [str(x) for x in self.list]
+        return "\n".join(values)
+
+    # isEmpty
+    def isEmpty(self):
+        if self.list == []:
+            return True
+        else:
+            return False
+        # isFull
+    def isFull(self):
+        if len(self.list)==self.maxSize:
+            return True
+        else:
+            return False
+
+    # push
+    def push(self,value):
+        if self.isFull():
+            return "the stack is full"
+        else:
+            self.list.append(value)
+            return "the element has been inserted"
+
+    # pop
+    def pop(self):
+        if self.isEmpty():
+            return "the stack is empty"
+        else:
+            return self.list.pop()
+        # peek
+    def peek(self):
+        if self.isEmpty():
+            return "the stack is empty"
+        else:
+            return self.list[len(self.list)-1]
+
+    def delete(self):
+        self.list=None
+
+#+end_src
+
+#+begin_src  python :session t :var dummy=ListStacklimit :results output
+customStack=stack(2)
+print(customStack.isEmpty())
+print(customStack.isFull())
+customStack.push(1)
+customStack.push(2)
+print(customStack)
+#+end_src
+
+#+RESULTS:
+: True
+: False
+: 2
+: 1
+
+* Stack using linked list
+From what i understood in the stack using linked list the stack is created using mainly the header pointer.for example when a linked is added using push method added link's pointer is pointed to the last added link and the head reference is pointed to the newly added head
+and incase of pop() the header reference is changed from the going to delte link to the next in line link garbage collection takes care of the rest.
+
+
+
+* Implementation using collections.deque:
+Python stack can be implemented using the deque class from the collections module. Deque is preferred over the list in the cases where we need quicker append and pop operations from both the ends of the container, as deque provides an O(1) time complexity for append and pop operations as compared to list which provides O(n) time complexity.
+
+
+#+name: StackDeque
+#+begin_src python :session t
+# Python program to
+# demonstrate stack implementation
+# using collections.deque
+
+from collections import deque
+
+stack = deque()
+
+
+#+end_src
+
+the boiler for stack using deque is shown above in the codeblocked named : StackDeque
+
+#+begin_src python  python :session t :var dummy=StackDeque :results output
+# append() function to push
+# element in the stack
+stack.append('a')
+stack.append('b')
+stack.append('c')
+
+print('Initial stack:')
+print(stack)
+
+# pop() function to pop
+# element from stack in
+# LIFO order
+print('\nElements popped from stack:')
+print(stack.pop())
+print(stack.pop())
+print(stack.pop())
+
+print('\nStack after elements are popped:')
+print(stack)
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Initial stack:
+deque(['a', 'b', 'c'])
+
+Elements popped from stack:
+c
+b
+a
+
+Stack after elements are popped:
+deque([])
+#+end_example
+
+* Implementation using queue module
+Queue module also has a LIFO Queue, which is basically a Stack. Data is inserted into Queue using the put() function and get() takes data out from the Queue.
+
+There are various functions available in this module:
+
+    maxsize – Number of items allowed in the queue.
+    empty() – Return True if the queue is empty, False otherwise.
+    full() – Return True if there are maxsize items in the queue. If the queue was initialized with maxsize=0 (the default), then full() never returns True.
+    get() – Remove and return an item from the queue. If the queue is empty, wait until an item is available.
+    get_nowait() – Return an item if one is immediately available, else raise QueueEmpty.
+    put(item) – Put an item into the queue. If the queue is full, wait until a free slot is available before adding the item.
+    put_nowait(item) – Put an item into the queue without blocking. If no free slot is immediately available, raise QueueFull.
+    qsize() – Return the number of items in the queue.
+
+
+#+name: StackQueueM
+    #+begin_src python :session t
+# Python program to
+# demonstrate stack implementation
+# using queue module
+
+from queue import LifoQueue
+
+# Initializing a stack
+stack = LifoQueue(maxsize=3)
+
+# qsize() show the number of elements
+# in the stack
+print(stack.qsize())
+    #+end_src
+
+    #+RESULTS: StackQueueM
+    : None
+
+
+    #+begin_src python :session t  :var dummy=StackQueueM :results output
+
+# put() function to push
+# element in the stack
+stack.put('a')
+stack.put('b')
+stack.put('c')
+
+print("Full: ", stack.full())
+print("Size: ", stack.qsize())
+
+# get() function to pop
+# element from stack in
+# LIFO order
+print('\nElements popped from the stack')
+print(stack.get())
+print(stack.get())
+print(stack.get())
+
+print("\nEmpty: ", stack.empty())
+    #+end_src
+
+    #+RESULTS:
+    : Full:  True
+    : Size:  3
+    :
+    : Elements popped from the stack
+    : c
+    : b
+    : a
+    :
+    : Empty:  True
+
+
+* stack implementation using doubley linked list
+
+#+name: StackDoubleLink
+#+begin_src python :session t
+# A complete working Python program to demonstrate all
+# stack operations using a doubly linked list
+
+# Node class
+class Node:
+
+# Function to initialise the node object
+    def __init__(self, data):
+        self.data = data # Assign data
+        self.next = None # Initialize next as null
+        self.prev = None # Initialize prev as null
+
+# Stack class contains a Node object
+class Stack:
+    # Function to initialize head
+    def __init__(self):
+        self.head = None
+
+# Function to add an element data in the stack
+    def push(self, data):
+
+        if self.head is None:
+            self.head = Node(data)
+        else:
+            new_node = Node(data)
+            self.head.prev = new_node
+            new_node.next = self.head
+            new_node.prev = None
+            self.head = new_node
+
+
+# Function to pop top element and return the element from the stack
+    def pop(self):
+
+        if self.head is None:
+            return None
+        elif self.head.next is None:
+            temp = self.head.data
+            self.head = None
+            return temp
+        else:
+            temp = self.head.data
+            self.head = self.head.next
+            self.head.prev = None
+            return temp
+
+
+
+
+# Function to return top element in the stack
+    def top(self):
+
+        return self.head.data
+
+
+# Function to return the size of the stack
+    def size(self):
+
+        temp = self.head
+        count = 0
+        while temp is not None:
+            count = count + 1
+            temp = temp.next
+        return count
+
+
+# Function to check if the stack is empty or not
+    def isEmpty(self):
+
+        if self.head is None:
+           return True
+        else:
+           return False
+
+
+# Function to print the stack
+    def printstack(self):
+
+        print("stack elements are:")
+        temp = self.head
+        while temp is not None:
+            print(temp.data, end ="->")
+            temp = temp.next
+
+#+end_src
+
+
+#+begin_src python :session t :var dummy =StackDoubleLink :result output
+# Code execution starts here
+if __name__=='__main__':
+
+# Start with the empty stack
+  stack = Stack()
+
+# Insert 4 at the beginning. So stack becomes 4->None
+  print("Stack operations using Doubly LinkedList")
+  stack.push(4)
+
+# Insert 5 at the beginning. So stack becomes 4->5->None
+  stack.push(5)
+
+# Insert 6 at the beginning. So stack becomes 4->5->6->None
+  stack.push(6)
+
+# Insert 7 at the beginning. So stack becomes 4->5->6->7->None
+  stack.push(7)
+
+# Print the stack
+  stack.printstack()
+
+# Print the top element
+  print("\nTop element is ", stack.top())
+
+# Print the stack size
+  print("Size of the stack is ", stack.size())
+
+# pop the top element
+  stack.pop()
+
+# pop the top element
+  stack.pop()
+
+# two elements are popped
+# Print the stack
+  stack.printstack()
+
+# Print True if the stack is empty else False
+  print("\nstack is empty:", stack.isEmpty())
+#+end_src
+
+#+RESULTS:
